@@ -2,6 +2,7 @@ const yargs = require("yargs/yargs");
 const { hideBin } = require("yargs/helpers");
 const argv = yargs(hideBin(process.argv)).argv;
 const filepath = argv.p || "test/test.csv";
+const timeoutCountMax = argv.N || 3;
 const csvStr = require("fs").readFileSync(filepath).toString();
 
 const stdout = [];
@@ -64,11 +65,20 @@ for (const host in dataGroupByHost) {
   let value = next.value;
   let done = next.done;
   let recordWhenBroken = value.response === "-" ? value : null;
+  let timeoutCount = 0;
+
   while (!done) {
-    if (!recordWhenBroken && value.response == "-") {
-      recordWhenBroken = value;
+    if (value.response == "-") {
+      if (timeoutCount === 0) {
+        recordWhenBroken = value;
+      }
+      timeoutCount += 1;
     }
-    if (recordWhenBroken && value.response != "-") {
+    if (
+      recordWhenBroken &&
+      value.response != "-" &&
+      timeoutCount >= timeoutCountMax
+    ) {
       const returnedDate = new Date(value.time);
       returnedDate.setMilliseconds(
         returnedDate.getMilliseconds() + value.response
@@ -79,6 +89,7 @@ for (const host in dataGroupByHost) {
         )}から${outputDateStr(returnedDate)}までです。\n`
       );
       recordWhenBroken = null;
+      timeoutCount = 0;
     }
     next = cursor.next();
     value = next.value;
