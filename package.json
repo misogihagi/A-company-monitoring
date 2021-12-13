@@ -4,7 +4,7 @@
   "description": "examination",
   "main": "index.js",
   "scripts": {
-    "test": "npx jest"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/misogihagi/A-company-monitoring/issues"
   },
-  "homepage": "https://github.com/misogihagi/A-company-monitoring#readme"
+  "homepage": "https://github.com/misogihagi/A-company-monitoring#readme",
+  "dependencies": {
+    "yargs": "^17.3.0"
+  },
+  "devDependencies": {
+    "jest": "^27.4.4"
+  }
 }
