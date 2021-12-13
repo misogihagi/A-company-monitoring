@@ -1,0 +1,19 @@
+{
+  "name": "a-company-monitoring",
+  "version": "1.0.0",
+  "description": "examination",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/misogihagi/A-company-monitoring.git"
+  },
+  "author": "misogihagi",
+  "license": "",
+  "bugs": {
+    "url": "https://github.com/misogihagi/A-company-monitoring/issues"
+  },
+  "homepage": "https://github.com/misogihagi/A-company-monitoring#readme"
+}
